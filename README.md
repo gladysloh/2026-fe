@@ -79,4 +79,3 @@ Three places where the AI output was wrong and needed fixing:
 - **No "Discard this transfer?" confirmation** when closing a half-filled dialog. Currently Esc or ✕ closes immediately and resets the form without warning.
 - **Amount input doesn't format on blur.** Typing `100` leaves it as `100` rather than formatting to `100.00`. Functional but not polished.
 - **No CI workflow.** `npm run check` runs locally but there's no GitHub Actions setup.
-- **Daily limit progress bar** (listed as optional in the brief) is not implemented — the card shows the remaining amount as text only.
