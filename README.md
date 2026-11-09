@@ -1,6 +1,6 @@
-# Meridian Banking — [Your Name]
+# Meridian Banking — Gladys Loh
 
-- Deployed: [url]
+- Deployed: https://2026-fe.vercel.app
 - Run locally: `npm install && npm run dev`
 
 ## Project structure
