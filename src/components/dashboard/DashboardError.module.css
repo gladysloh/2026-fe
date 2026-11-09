@@ -1,0 +1,15 @@
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  margin: var(--space-16) auto;
+  max-width: 320px;
+  text-align: center;
+}
+
+.message {
+  color: var(--text-muted);
+  font-size: var(--text-base);
+  margin: 0;
+}

@@ -1,0 +1,124 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.title {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  margin: 0;
+}
+
+.searchWrapper {
+  position: relative;
+}
+
+.searchInput {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: var(--text-sm);
+  min-height: var(--tap-target);
+  padding: 0 var(--space-3);
+  transition: border-color var(--duration-fast);
+  width: 100%;
+}
+
+.searchInput:focus {
+  border-color: var(--brand);
+  outline: none;
+}
+
+.noResults {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  margin: 0;
+  padding: var(--space-3) 0;
+  text-align: center;
+}
+
+.payeeList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.payeeSkeleton {
+  border-radius: var(--radius-md);
+}
+
+.newRecipientToggle {
+  align-items: center;
+  background: transparent;
+  border: 1.5px dashed var(--border-strong);
+  border-radius: var(--radius-md);
+  color: var(--brand);
+  cursor: pointer;
+  display: flex;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  gap: var(--space-2);
+  min-height: var(--tap-target);
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  transition: background var(--duration-fast), border-color var(--duration-fast);
+  width: 100%;
+}
+
+.newRecipientToggle:hover,
+.active {
+  background: var(--brand-soft);
+  border-color: var(--brand);
+}
+
+.newRecipientForm {
+  background: var(--surface-muted);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.label {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+
+.input,
+.select {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: var(--text-sm);
+  min-height: var(--tap-target);
+  padding: 0 var(--space-3);
+  transition: border-color var(--duration-fast);
+  width: 100%;
+}
+
+.input:focus,
+.select:focus {
+  border-color: var(--brand);
+  outline: none;
+}
+
+.input[aria-invalid='true'],
+.select[aria-invalid='true'] {
+  border-color: var(--negative);
+}
+
+.error {
+  color: var(--negative);
+  font-size: var(--text-xs);
+}

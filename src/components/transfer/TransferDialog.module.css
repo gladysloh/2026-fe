@@ -1,0 +1,88 @@
+.dialog {
+  background: var(--surface);
+  border: none;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  margin: auto;
+  max-height: calc(100dvh - var(--space-8));
+  max-width: 520px;
+  overflow: hidden;
+  padding: 0;
+  width: calc(100vw - var(--space-8));
+}
+
+.dialog::backdrop {
+  background: var(--overlay);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100dvh - var(--space-8));
+}
+
+.dialogHeader {
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-between;
+  padding: var(--space-5) var(--space-6);
+}
+
+.dialogTitle {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  margin: 0;
+}
+
+.closeButton {
+  align-items: center;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  height: 36px;
+  justify-content: center;
+  transition: color var(--duration-fast);
+  width: 36px;
+}
+
+.closeButton:hover {
+  color: var(--text);
+}
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-5) var(--space-6) var(--space-6);
+}
+
+.footer {
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+}
+
+.footer > * {
+  flex: 1;
+}
+
+@media (max-width: 1023px) {
+  .dialog {
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    max-height: 92dvh;
+    max-width: 100%;
+    position: fixed;
+    right: 0;
+    top: auto;
+    width: 100%;
+  }
+}

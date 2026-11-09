@@ -1,0 +1,26 @@
+.switch {
+  background: var(--surface-muted);
+  border-radius: var(--radius-sm);
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+}
+
+.option {
+  background: transparent;
+  border: none;
+  border-radius: calc(var(--radius-sm) - 2px);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  padding: var(--space-1) var(--space-3);
+  transition: background var(--duration-fast), color var(--duration-fast);
+}
+
+.option[aria-pressed='true'] {
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  color: var(--text);
+  font-weight: var(--weight-semibold);
+}

@@ -8,6 +8,20 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      (function () {
+        var theme = localStorage.getItem('meridian-theme')
+        var segment = localStorage.getItem('meridian-segment')
+        if (!theme) {
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light'
+        }
+        if (!segment) segment = 'retail'
+        document.documentElement.setAttribute('data-theme', theme)
+        document.documentElement.setAttribute('data-segment', segment)
+      })()
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

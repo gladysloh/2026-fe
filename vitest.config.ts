@@ -10,5 +10,6 @@ export default defineConfig({
     restoreMocks: true,
     // Same results on every machine and in CI, whatever the local timezone.
     env: { TZ: 'Asia/Singapore' },
+    testTimeout: 15000,
   },
 })

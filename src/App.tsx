@@ -1,39 +1,115 @@
-import { useQuery } from '@tanstack/react-query'
-import { apiFetch } from './api/client'
-import type { Health } from './api/types'
+import { useRef, useState } from 'react'
+import { useAccounts } from './hooks/useAccounts'
+import { useCustomer } from './hooks/useCustomer'
+import { usePayees } from './hooks/usePayees'
+import { BalanceHero } from './components/dashboard/BalanceHero'
+import { AccountList } from './components/dashboard/AccountList'
+import { DailyLimitCard } from './components/dashboard/DailyLimitCard'
+import { DashboardError } from './components/dashboard/DashboardError'
+import { TransactionList } from './components/dashboard/TransactionList'
+import { Header } from './components/layout/Header'
+import { Button } from './components/ui/Button'
+import { SegmentSwitch } from './components/ui/SegmentSwitch'
+import { TransferDialog } from './components/transfer/TransferDialog'
+import styles from './App.module.css'
 
 export default function App() {
-  const health = useQuery({
-    queryKey: ['health'],
-    queryFn: () => apiFetch<Health>('/api/health'),
-    retry: false,
-  })
+  const [isTransferOpen, setIsTransferOpen] = useState(false)
+  const transferBtnRef = useRef<HTMLButtonElement>(null)
 
-  const status = health.isPending
-    ? 'checking…'
-    : health.isError
-      ? 'not connected'
-      : 'connected'
+  function handleOpenTransfer() {
+    setIsTransferOpen(true)
+  }
+
+  function handleCloseTransfer() {
+    setIsTransferOpen(false)
+    transferBtnRef.current?.focus()
+  }
+  const customerQuery = useCustomer()
+  const accountsQuery = useAccounts()
+  const payeesQuery = usePayees()
+
+  const isLoading = customerQuery.isLoading || accountsQuery.isLoading
+  const isError = customerQuery.isError || accountsQuery.isError
+
+  function handleRetry() {
+    void customerQuery.refetch()
+    void accountsQuery.refetch()
+  }
+
+  const customer = customerQuery.data?.customer
+  const accounts = accountsQuery.data?.accounts ?? []
+  const payees = payeesQuery.data?.payees ?? []
+
+  const dailyRemaining =
+    customer != null ? customer.dailyTransferLimit - customer.transferredToday : 0
 
   return (
-    <div className="starter">
-      <header className="starter-header">
-        <strong>Meridian</strong>
-        <span>Take-home starter</span>
-      </header>
+    <>
+      <Header />
 
-      <main className="starter-main">
-        <h1>Build the dashboard and transfer flow</h1>
-        <p>
-          Start with <code>README.md</code>, then read{' '}
-          <code>brief/candidate-brief.md</code>. Replace this screen with your
-          app.
-        </p>
+      <main className={styles.main}>
+        {isError ? (
+          <DashboardError onRetry={handleRetry} />
+        ) : (
+          <>
+            {/* Mobile: greeting + segment switch above hero */}
+            <div className={styles.mobileGreeting}>
+              <div className={styles.greetingRow}>
+                <p className={styles.greeting}>Good evening, Ava</p>
+                <SegmentSwitch />
+              </div>
+            </div>
 
-        <p className="status" role="status">
-          Mock API: {status}
-        </p>
+            <div className={styles.container}>
+              {/* Desktop: greeting */}
+              <div className={styles.desktopGreeting}>
+                <p className={styles.greeting}>Good evening, Ava</p>
+              </div>
+
+              <div className={styles.grid}>
+                <div className={styles.mainCol}>
+                  <BalanceHero
+                    accounts={accounts}
+                    isLoading={isLoading}
+                    onNewTransfer={handleOpenTransfer}
+                  />
+                  <AccountList accounts={accounts} isLoading={isLoading} />
+                  <TransactionList />
+                </div>
+
+                <aside className={styles.rail}>
+                  <DailyLimitCard customer={customer} isLoading={isLoading} />
+                </aside>
+              </div>
+            </div>
+          </>
+        )}
       </main>
-    </div>
+
+      {/* Mobile fixed bottom CTA */}
+      {!isError && (
+        <div className={styles.mobileTransferBar}>
+          <Button
+            ref={transferBtnRef}
+            onClick={handleOpenTransfer}
+            fullWidth
+            disabled={isLoading}
+          >
+            New transfer
+          </Button>
+        </div>
+      )}
+
+      {isTransferOpen && (
+        <TransferDialog
+          isOpen={isTransferOpen}
+          onClose={handleCloseTransfer}
+          accounts={accounts}
+          payees={payees}
+          dailyRemaining={dailyRemaining}
+        />
+      )}
+    </>
   )
 }
