@@ -76,7 +76,6 @@ Three places where the AI output was wrong and needed fixing:
 
 ## Not done / known issues
 
-- **No deployed URL yet** — deployment pending.
 - **No "Discard this transfer?" confirmation** when closing a half-filled dialog. Currently Esc or ✕ closes immediately and resets the form without warning.
 - **Amount input doesn't format on blur.** Typing `100` leaves it as `100` rather than formatting to `100.00`. Functional but not polished.
 - **No CI workflow.** `npm run check` runs locally but there's no GitHub Actions setup.
